@@ -1,26 +1,288 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fefdfb;
+  --foreground: #1a1a1a;
+  --gold: #b8860b;
+  --gold-light: #daa520;
+  --gold-dark: #8b6914;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --card-border: rgba(184, 134, 11, 0.15);
+  --text-muted: #6b6b6b;
+  --cream: #f8f6f2;
+  --light-gold: #faf8f3;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-text-muted: var(--text-muted);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f6f2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-light);
+}
+
+/* Glassmorphism Card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 134, 11, 0.2);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(184, 134, 11, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12),
+    0 8px 16px rgba(184, 134, 11, 0.15);
+}
+
+/* Gold Gradient Button */
+.btn-gold {
+  background: linear-gradient(135deg, #b8860b 0%, #8b6914 100%);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(184, 134, 11, 0.4);
+}
+
+/* Gold Text */
+.text-gold {
+  color: var(--gold);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #b8860b 0%, #daa520 50%, #8b6914 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Bento Grid */
+.bento-grid {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(201, 169, 97, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(201, 169, 97, 0.6);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Delay Classes */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+/* Image Hover Effect */
+.img-hover {
+  overflow: hidden;
+  border-radius: 16px;
+  position: relative;
+}
+
+.img-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.img-hover:hover::after {
+  opacity: 0;
+}
+
+.img-hover img {
+  transition: transform 0.5s ease;
+  filter: brightness(0.92);
+}
+
+.img-hover:hover img {
+  transform: scale(1.08);
+  filter: brightness(1);
+}
+
+/* Icon Style */
+.icon-box {
+  width: 50px;
+  height: 50px;
+  background: rgba(201, 169, 97, 0.1);
+  border: 1px solid rgba(201, 169, 97, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.icon-box:hover {
+  background: rgba(201, 169, 97, 0.2);
+  transform: scale(1.1);
+}
+
+/* Form Styles */
+.form-input {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(184, 134, 11, 0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: #1a1a1a;
+  font-size: 16px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: #ffffff;
+  box-shadow: 0 0 20px rgba(184, 134, 11, 0.15);
+}
+
+.form-input::placeholder {
+  color: #9a9a9a;
+}
+
+/* Responsive Grid Adjustments */
+@media (max-width: 1024px) {
+  .bento-grid {
+    gap: 16px;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    gap: 12px;
+    padding: 12px;
+  }
 }
